@@ -317,7 +317,7 @@ function render(){
     const brand=document.getElementById('aBrand').value;
     c.innerHTML=`<div style="width:100%;height:100%;position:relative;overflow:hidden;">
       <div class="tA-bg" style="${bg}"></div>
-      <div class="tA-brand">${brand.split('').join('<br>')}</div>
+      <div class="tA-brand">${brand.split('').reverse().join('<br>')}</div>
       <div class="tA-bottom">
         <div class="tA-title">${title}</div>
         <div class="tA-hr"></div>
