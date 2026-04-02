@@ -135,7 +135,7 @@ input[type=text]:focus,textarea:focus{border-color:#0d2359;}
 
 /* ===== TYPE A ===== */
 .tA-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.tA-brand{position:absolute;top:14px;left:14px;font-family:'Noto Serif TC',serif;font-size:11px;font-weight:400;color:rgba(255,255,255,.85);letter-spacing:.1em;writing-mode:vertical-rl;line-height:1.8;}
+.tA-brand{position:absolute;top:14px;left:14px;font-family:'Noto Serif TC',serif;font-size:11px;font-weight:400;color:rgba(255,255,255,.85);letter-spacing:.1em;writing-mode:vertical-lr;line-height:1.8;}
 .tA-bottom{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(5,15,40,.92) 0%,rgba(5,15,40,.55) 55%,transparent 100%);padding:44px 16px 16px;}
 .tA-title{font-family:'Noto Sans TC',sans-serif;font-size:19px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:7px;}
 .tA-hr{height:.5px;background:rgba(255,255,255,.4);margin-bottom:7px;}
@@ -317,7 +317,7 @@ function render(){
     const brand=document.getElementById('aBrand').value;
     c.innerHTML=`<div style="width:100%;height:100%;position:relative;overflow:hidden;">
       <div class="tA-bg" style="${bg}"></div>
-      <div class="tA-brand">${brand.split('').reverse().join('<br>')}</div>
+      <div class="tA-brand">${brand.split('').join('<br>')}</div>
       <div class="tA-bottom">
         <div class="tA-title">${title}</div>
         <div class="tA-hr"></div>
