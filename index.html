@@ -361,7 +361,7 @@ function downloadPNG(){
   const btn=document.querySelector('.dl-btn');
   btn.textContent='產生中...';btn.disabled=true;
   html2canvas(document.getElementById('igCanvas'),{
-    scale:3,useCORS:true,backgroundColor:null,logging:false
+    scale:5,useCORS:true,backgroundColor:null,logging:false
   }).then(cv=>{
     const a=document.createElement('a');
     a.download='heshi-ig.png';
