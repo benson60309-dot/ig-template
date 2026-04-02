@@ -3,187 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>何時旅遊 IG 圖文套版工具</title>
+<title>何時旅遊 IG 圖文套版工具 (Pro Canvas 版)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --navy:#0d2359;
-  --gold:#e6a817;
-  --gray-bg:#eeece8;
-  --white:#ffffff;
-}
-body{
-  font-family:'Noto Sans TC',sans-serif;
-  background:#f5f4f0;
-  color:#1a1a1a;
-  min-height:100vh;
-}
-header{
-  background:var(--navy);
-  padding:14px 24px;
-  display:flex;align-items:center;gap:12px;
-}
-header .logo{
-  font-family:'Noto Serif TC',serif;
-  font-size:16px;font-weight:700;
-  color:#fff;letter-spacing:.05em;
-}
-header .sub{
-  font-size:12px;color:rgba(255,255,255,.55);
-}
+:root{--navy:#0d2359;--gold:#e6a817;--gray-bg:#eeece8;--white:#ffffff;}
+body{font-family:'Noto Sans TC',sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:var(--navy);padding:14px 24px;display:flex;align-items:center;gap:12px;}
+header .logo{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:.05em;}
+header .sub{font-size:12px;color:rgba(255,255,255,.55);}
 
 .main{
   max-width:900px;margin:24px auto;
   padding:0 16px 40px;
-  display:grid;
-  grid-template-columns:280px 1fr;
-  gap:20px;
+  display:grid;grid-template-columns:280px 1fr;gap:20px;
 }
 
-/* CONTROLS */
-.ctrl{
-  background:#fff;
-  border-radius:12px;
-  padding:18px;
-  display:flex;flex-direction:column;gap:12px;
-  align-self:start;
-  box-shadow:0 1px 4px rgba(0,0,0,.07);
-}
-.section-label{
-  font-size:11px;font-weight:700;
-  color:#888;letter-spacing:.1em;
-  text-transform:uppercase;
-  margin-top:4px;
-}
+/* CONTROLS (與原本介面相同) */
+.ctrl{background:#fff;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px;align-self:start;box-shadow:0 1px 4px rgba(0,0,0,.07);}
+.section-label{font-size:11px;font-weight:700;color:#888;letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
 .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.type-btn{
-  padding:8px 6px;
-  border:1.5px solid #ddd;
-  border-radius:8px;
-  background:#fff;
-  color:#555;
-  font-size:11px;cursor:pointer;
-  font-family:inherit;line-height:1.5;
-  text-align:center;transition:all .15s;
-}
+.type-btn{padding:8px 6px;border:1.5px solid #ddd;border-radius:8px;background:#fff;color:#555;font-size:11px;cursor:pointer;font-family:inherit;line-height:1.5;text-align:center;transition:all .15s;}
 .type-btn:hover{border-color:#0d2359;color:#0d2359;}
 .type-btn.active{border-color:#0d2359;background:#0d2359;color:#fff;}
-
 .field-group{display:flex;flex-direction:column;gap:4px;}
 .field-label{font-size:11px;color:#888;}
-input[type=text],textarea{
-  width:100%;padding:8px 10px;
-  font-size:13px;
-  border:1px solid #e0e0e0;
-  border-radius:8px;
-  background:#fff;color:#1a1a1a;
-  font-family:inherit;resize:none;outline:none;
-  transition:border-color .15s;
-}
+input[type=text],textarea{width:100%;padding:8px 10px;font-size:13px;border:1px solid #e0e0e0;border-radius:8px;background:#fff;color:#1a1a1a;font-family:inherit;resize:none;outline:none;transition:border-color .15s;}
 input[type=text]:focus,textarea:focus{border-color:#0d2359;}
-
-.upload-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:9px;
-  border:1.5px dashed #ccc;
-  border-radius:8px;cursor:pointer;
-  font-size:12px;color:#888;
-  background:#fafafa;transition:all .15s;
-}
+.upload-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border:1.5px dashed #ccc;border-radius:8px;cursor:pointer;font-size:12px;color:#888;background:#fafafa;transition:all .15s;}
 .upload-btn:hover{border-color:#0d2359;color:#0d2359;background:#f0f4ff;}
-
 .divider{height:1px;background:#eee;}
-
-.dl-btn{
-  width:100%;padding:11px;
-  border:none;border-radius:8px;
-  background:#0d2359;color:#fff;
-  font-size:14px;font-weight:700;
-  cursor:pointer;font-family:inherit;
-  letter-spacing:.02em;
-  transition:opacity .15s;
-}
+.dl-btn{width:100%;padding:11px;border:none;border-radius:8px;background:#0d2359;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.02em;transition:opacity .15s;}
 .dl-btn:hover{opacity:.85;}
-.dl-btn:active{opacity:.7;}
-
 .hint{font-size:11px;color:#aaa;line-height:1.8;text-align:center;}
 
-/* PREVIEW */
-.preview-col{
-  display:flex;flex-direction:column;align-items:center;gap:14px;
-}
-.preview-label{
-  align-self:flex-start;
-  font-size:11px;color:#888;font-weight:500;
-  letter-spacing:.05em;
-}
-.canvas-outer{
-  background:#e8e6e0;
-  padding:16px;
-  border-radius:16px;
-  box-shadow:0 2px 12px rgba(0,0,0,.1);
-}
-.canvas-wrap{
-  width:270px;height:337px;
-  position:relative;overflow:hidden;
-  border-radius:4px;
-  box-shadow:0 4px 20px rgba(0,0,0,.25);
-}
+/* PREVIEW - 改為純 Canvas 容器 */
+.preview-col{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.preview-label{align-self:flex-start;font-size:11px;color:#888;font-weight:500;letter-spacing:.05em;}
+.canvas-outer{background:#e8e6e0;padding:16px;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.1); width: 100%; max-width: 320px;}
+.canvas-wrap{width:100%; aspect-ratio: 4/5; position:relative;overflow:hidden;border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,.25); background: #fff;}
+/* 自動縮放高畫質 Canvas 以適應預覽區塊 */
+#igCanvas { width: 100%; height: 100%; display: block; object-fit: contain; }
 
-/* ===== TYPE A ===== */
-.tA-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.tA-brand{position:absolute;top:14px;left:14px;font-family:'Noto Serif TC',serif;font-size:11px;font-weight:400;color:rgba(255,255,255,.95);letter-spacing:.1em;writing-mode:vertical-lr;text-shadow:0 1px 4px rgba(0,0,0,0.6);line-height:1.8;}
-.tA-bottom{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(5,15,40,.92) 0%,rgba(5,15,40,.55) 55%,transparent 100%);padding:44px 16px 16px;}
-.tA-title{font-family:'Noto Sans TC',sans-serif;font-size:19px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:7px;}
-.tA-hr{height:.5px;background:rgba(255,255,255,.4);margin-bottom:7px;}
-.tA-pill{display:inline-block;background:#e6a817;color:#0d2359;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;}
-
-/* ===== TYPE B ===== */
-.tB-wrap{background:#0d2359;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:28px 22px;gap:18px;}
-.tB-pill{background:#fff;border-radius:30px;border:2px solid #e6a817;padding:10px 18px;font-family:'Noto Sans TC',sans-serif;font-size:15px;font-weight:700;color:#0d2359;text-align:center;line-height:1.4;}
-.tB-lines{display:flex;flex-direction:column;gap:8px;}
-.tB-line{font-family:'Noto Sans TC',sans-serif;font-size:12px;color:rgba(255,255,255,.85);text-align:center;line-height:1.5;}
-.tB-gold{color:#e6a817;font-weight:700;}
-
-/* ===== TYPE C ===== */
-.tC-wrap{background:#eeece8;width:100%;height:100%;position:relative;display:flex;flex-direction:column;}
-.tC-navy-bar{position:absolute;right:0;top:0;bottom:0;width:10px;background:#0d2359;}
-.tC-photo{width:100%;height:195px;overflow:hidden;background:#bbb;flex-shrink:0;}
-.tC-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-.tC-banner{display:flex;align-items:center;background:#fff;border-radius:0 0 20px 20px;margin:0 16px;padding:8px 14px;border-bottom:2px solid #e6a817;font-family:'Noto Sans TC',sans-serif;font-size:13px;font-weight:700;color:#0d2359;}
-.tC-body{padding:10px 18px 14px;display:flex;flex-direction:column;gap:5px;}
-.tC-line{font-family:'Noto Sans TC',sans-serif;font-size:11.5px;color:#1a2a50;line-height:1.6;}
-.tC-gold{color:#e6a817;font-weight:700;}
-
-/* ===== TYPE D ===== */
-.tD-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.tD-dim{position:absolute;inset:0;background:rgba(255,255,255,0.35);}
-.tD-top{position:absolute;top:12px;left:12px;right:12px;}
-.tD-pill{display:inline-block;background:#fff;border-radius:24px;border-left:4px solid #e6a817;padding:7px 14px;font-family:'Noto Sans TC',sans-serif;font-size:13px;font-weight:700;color:#0d2359;line-height:1.3;max-width:100%;}
-.tD-bottom{position:absolute;bottom:0;left:0;right:0;padding:14px 16px 16px;background:linear-gradient(to top,rgba(5,15,40,.75) 0%,rgba(5,15,40,.35) 70%,transparent 100%);}
-.tD-line{font-family:'Noto Sans TC',sans-serif;font-size:11px;color:rgba(255,255,255,.9);line-height:1.8;}
-.tD-gold{color:#e6a817;font-weight:700;}
-
-/* ===== TYPE E ===== */
-.tE-wrap{background:#0d2359;width:100%;height:100%;display:flex;flex-direction:column;}
-.tE-top{padding:18px 18px 10px;display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
-.tE-pill{display:inline-block;background:#fff;border-radius:20px;border-left:4px solid #e6a817;padding:6px 14px;font-family:'Noto Sans TC',sans-serif;font-size:13px;font-weight:700;color:#0d2359;align-self:flex-start;}
-.tE-lines{display:flex;flex-direction:column;gap:5px;}
-.tE-line{font-family:'Noto Sans TC',sans-serif;font-size:11px;color:rgba(255,255,255,.85);line-height:1.6;}
-.tE-gold{color:#e6a817;font-weight:700;}
-.tE-photos{flex:1;background:#eeece8;position:relative;min-height:0;}
-.tE-photo-big{position:absolute;right:8px;top:8px;width:58%;height:90%;object-fit:cover;border:2px solid #fff;display:block;}
-.tE-photo-small{position:absolute;left:8px;bottom:12px;width:44%;height:72%;object-fit:cover;border:2px solid #fff;display:block;}
-.ph-box{width:100%;height:100%;background:#b0aaa0;display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.7);font-family:'Noto Sans TC',sans-serif;}
-.tE-ph{position:absolute;background:#b5b0a8;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.6);}
-
-/* RESPONSIVE */
 @media(max-width:680px){
   .main{grid-template-columns:1fr;max-width:360px;}
-  .canvas-wrap{width:280px;height:350px;}
 }
 </style>
 </head>
@@ -192,7 +56,7 @@ input[type=text]:focus,textarea:focus{border-color:#0d2359;}
 <header>
   <div>
     <div class="logo">何時旅遊</div>
-    <div class="sub">IG 圖文套版工具</div>
+    <div class="sub">IG 圖文套版工具 (原生 Canvas 渲染引擎)</div>
   </div>
 </header>
 
@@ -210,170 +74,331 @@ input[type=text]:focus,textarea:focus{border-color:#0d2359;}
 
     <div class="divider"></div>
 
-    <!-- TYPE A -->
     <div id="fA">
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><div class="field-label">品牌名稱（左上直排）</div><input type="text" id="aBrand" value="何時旅遊" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">主標題</div><textarea id="aTitle" rows="2" oninput="render()">如果有一種旅行
+      <div class="field-group"><div class="field-label">品牌名稱（左上直排）</div><input type="text" id="aBrand" value="何時旅遊" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">主標題</div><textarea id="aTitle" rows="2" oninput="render()">如果有一種旅行
 是專門為「一個人」設計的</textarea></div>
-        <div class="field-group"><div class="field-label">金色標籤文字</div><input type="text" id="aTag" value="你會想參加嗎？" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi1">＋ 點擊上傳照片</label><input type="file" id="pi1" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
-      </div>
+      <div class="field-group"><div class="field-label">金色標籤文字</div><input type="text" id="aTag" value="想玩時，找何時" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi1">＋ 點擊上傳照片</label><input type="file" id="pi1" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
     </div>
 
-    <!-- TYPE B -->
     <div id="fB" style="display:none">
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><div class="field-label">膠囊框主標題</div><input type="text" id="bTitle" value="想出國，卻總是在等別人有空" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="bLines" rows="5" oninput="render()">另一半沒興趣
+      <div class="field-group"><div class="field-label">膠囊框主標題</div><input type="text" id="bTitle" value="想出國，卻總是在等別人有空" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="bLines" rows="5" oninput="render()">另一半沒興趣
 朋友的假永遠湊不在一起
 與其無止盡地等待別人
 ★不如我自己先出發</textarea></div>
-      </div>
     </div>
 
-    <!-- TYPE C -->
     <div id="fC" style="display:none">
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><div class="field-label">標題橫幅</div><input type="text" id="cTitle" value="但在何時旅遊，沒人想請假" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="cLines" rows="5" oninput="render()">今年第一次員工旅遊
+      <div class="field-group"><div class="field-label">標題橫幅</div><input type="text" id="cTitle" value="但在何時旅遊，沒人想請假" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="cLines" rows="5" oninput="render()">今年第一次員工旅遊
 全公司60人，除了2個出差
 其他人全部準時報到
 ★因為我們把每一位員工都當成 VIP 在寵</textarea></div>
-        <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi2">＋ 點擊上傳照片</label><input type="file" id="pi2" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
-      </div>
+      <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi2">＋ 點擊上傳照片</label><input type="file" id="pi2" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
     </div>
 
-    <!-- TYPE D -->
     <div id="fD" style="display:none">
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><div class="field-label">頂部膠囊框標題</div><input type="text" id="dTitle" value="從陌生人，變成最好的限時旅伴" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">底部內文（金色行請在前面加 ★）</div><textarea id="dLines" rows="5" oninput="render()">第一天：大家見面還有點客氣的點頭
+      <div class="field-group"><div class="field-label">頂部膠囊框標題</div><input type="text" id="dTitle" value="從陌生人，變成最好的限時旅伴" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">底部內文（金色行請在前面加 ★）</div><textarea id="dLines" rows="5" oninput="render()">第一天：大家見面還有點客氣的點頭
 第二天：自然地湊在同一桌吃飯聊天
 第三天：開始互相幫忙拍出奇蹟美照
 ★最後一天：已經在群組裡約下一趟要去哪</textarea></div>
-        <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi3">＋ 點擊上傳照片</label><input type="file" id="pi3" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
-      </div>
+      <div class="field-group"><div class="field-label">上傳照片</div><label class="upload-btn" for="pi3">＋ 點擊上傳照片</label><input type="file" id="pi3" style="display:none" accept="image/*" onchange="loadPhoto(event,'main')"></div>
     </div>
 
-    <!-- TYPE E -->
     <div id="fE" style="display:none">
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div class="field-group"><div class="field-label">左上膠囊框標題</div><input type="text" id="eTitle" value="全公司都啞了" oninput="render()"></div>
-        <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="eLines" rows="4" oninput="render()">因為賽後還有戴愛玲跟動力火車的演唱會
+      <div class="field-group"><div class="field-label">左上膠囊框標題</div><input type="text" id="eTitle" value="全公司都啞了" oninput="render()"></div>
+      <div class="field-group"><div class="field-label">內文（金色行請在前面加 ★）</div><textarea id="eLines" rows="4" oninput="render()">因為賽後還有戴愛玲跟動力火車的演唱會
 大家跟著瘋狂尖叫，嗓子全廢了
 事實證明：
 ★只要行程夠神，員工旅遊真的可以超級好玩</textarea></div>
-        <div class="field-group"><div class="field-label">大照片（右側）</div><label class="upload-btn" for="pi4">＋ 上傳大照片</label><input type="file" id="pi4" style="display:none" accept="image/*" onchange="loadPhoto(event,'big')"></div>
-        <div class="field-group"><div class="field-label">小照片（左下）</div><label class="upload-btn" for="pi5">＋ 上傳小照片</label><input type="file" id="pi5" style="display:none" accept="image/*" onchange="loadPhoto(event,'small')"></div>
-      </div>
+      <div class="field-group"><div class="field-label">大照片（右側）</div><label class="upload-btn" for="pi4">＋ 上傳大照片</label><input type="file" id="pi4" style="display:none" accept="image/*" onchange="loadPhoto(event,'big')"></div>
+      <div class="field-group"><div class="field-label">小照片（左下）</div><label class="upload-btn" for="pi5">＋ 上傳小照片</label><input type="file" id="pi5" style="display:none" accept="image/*" onchange="loadPhoto(event,'small')"></div>
     </div>
 
     <div class="divider"></div>
-    <button class="dl-btn" onclick="downloadPNG()">⬇ 下載圖片（PNG）</button>
-    <div class="hint">IG 4:5 建議尺寸：1080 × 1350 px<br>IG 1:1 建議尺寸：1080 × 1080 px</div>
+    <button class="dl-btn" onclick="downloadPNG()">⬇ 下載高畫質圖片 (PNG)</button>
+    <div class="hint">系統已自動鎖定 IG 4:5 完美比例<br>匯出尺寸：1080 × 1350 px</div>
   </div>
 
   <!-- PREVIEW -->
   <div class="preview-col">
-    <div class="preview-label">即時預覽（4:5 比例）</div>
+    <div class="preview-label">即時預覽（1080p 渲染）</div>
     <div class="canvas-outer">
-      <div class="canvas-wrap" id="igCanvas"></div>
+      <div class="canvas-wrap">
+        <!-- 這裡只保留一個 Canvas，透過 CSS 縮放預覽，維持高效能與精準度 -->
+        <canvas id="igCanvas" width="1080" height="1350"></canvas>
+      </div>
     </div>
-    <div style="font-size:12px;color:#aaa;">下載後為高解析度 PNG，可直接發佈至 IG</div>
   </div>
 </div>
 
 <script>
-let cur='A', photos={main:null,big:null,small:null};
+let cur = 'A';
+const photos = { main: null, big: null, small: null };
 
-function setType(t,btn){
-  cur=t;
-  document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
+// 切換版型
+function setType(t, btn){
+  cur = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['A','B','C','D','E'].forEach(x=>document.getElementById('f'+x).style.display=x===t?'block':'none');
+  ['A','B','C','D','E'].forEach(x => document.getElementById('f'+x).style.display = x === t ? 'block' : 'none');
   render();
 }
 
-function loadPhoto(e,slot){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{photos[slot]=ev.target.result;render();};
-  r.readAsDataURL(f);
+// 載入照片轉為 Image 物件
+function loadPhoto(e, slot){
+  const f = e.target.files[0];
+  if(!f) return;
+  const url = URL.createObjectURL(f);
+  const img = new Image();
+  img.onload = () => {
+    photos[slot] = img;
+    render();
+  };
+  img.src = url;
 }
 
-function mkLines(id,cls,clsGold){
-  return(document.getElementById(id).value||'').split('\n').filter(l=>l.trim()).map(l=>{
-    if(l.startsWith('★'))return`<div class="${clsGold}">${l.slice(1).trim()}</div>`;
-    return`<div class="${cls}">${l}</div>`;
-  }).join('');
-}
-
-function render(){
-  const c=document.getElementById('igCanvas');
-  if(cur==='A'){
-    const bg=photos.main?`background-image:url('${photos.main}');background-size:cover;background-position:center;`:`background:linear-gradient(135deg,#8a9aaa,#5a6a7a);`;
-    const title=(document.getElementById('aTitle').value||'').replace(/\n/g,'<br>');
-    const tag=document.getElementById('aTag').value;
-    const brand=document.getElementById('aBrand').value;
-    c.innerHTML=`<div style="width:100%;height:100%;position:relative;overflow:hidden;">
-      <div class="tA-bg" style="${bg}"></div>
-      <div class="tA-brand">${brand.split('').join('<br>')}</div>
-      <div class="tA-bottom">
-        <div class="tA-title">${title}</div>
-        <div class="tA-hr"></div>
-        ${tag?`<span class="tA-pill">${tag}</span>`:''}
-      </div></div>`;
-  }else if(cur==='B'){
-    const t=document.getElementById('bTitle').value;
-    c.innerHTML=`<div class="tB-wrap"><div class="tB-pill">${t}</div><div class="tB-lines">${mkLines('bLines','tB-line','tB-line tB-gold')}</div></div>`;
-  }else if(cur==='C'){
-    const t=document.getElementById('cTitle').value;
-    const ph=photos.main?`<img src="${photos.main}">`:`<div class="ph-box">上傳照片</div>`;
-    c.innerHTML=`<div class="tC-wrap"><div class="tC-navy-bar"></div>
-      <div class="tC-photo">${ph}</div>
-      <div class="tC-banner">${t}</div>
-      <div class="tC-body">${mkLines('cLines','tC-line','tC-line tC-gold')}</div></div>`;
-  }else if(cur==='D'){
-    const bg=photos.main?`background-image:url('${photos.main}');background-size:cover;background-position:center;`:`background:linear-gradient(135deg,#7a8a9a,#4a5a6a);`;
-    const t=document.getElementById('dTitle').value;
-    c.innerHTML=`<div style="width:100%;height:100%;position:relative;overflow:hidden;">
-      <div class="tD-bg" style="${bg}"></div>
-      <div class="tD-dim"></div>
-      <div class="tD-top"><div class="tD-pill">${t}</div></div>
-      <div class="tD-bottom">${mkLines('dLines','tD-line','tD-line tD-gold')}</div></div>`;
-  }else if(cur==='E'){
-    const t=document.getElementById('eTitle').value;
-    const big=photos.big
-      ?`<img class="tE-photo-big" src="${photos.big}">`
-      :`<div class="tE-ph tE-photo-big">大照片</div>`;
-    const small=photos.small
-      ?`<img class="tE-photo-small" src="${photos.small}">`
-      :`<div class="tE-ph tE-photo-small">小照片</div>`;
-    c.innerHTML=`<div class="tE-wrap">
-      <div class="tE-top">
-        <div class="tE-pill">${t}</div>
-        <div class="tE-lines">${mkLines('eLines','tE-line','tE-line tE-gold')}</div>
-      </div>
-      <div class="tE-photos">${big}${small}</div></div>`;
+// 輔助：繪製覆蓋型圖片 (模擬 object-fit: cover)
+function drawCover(ctx, img, x, y, w, h) {
+  const imgRatio = img.width / img.height;
+  const targetRatio = w / h;
+  let sx, sy, sw, sh;
+  if (imgRatio > targetRatio) {
+    sh = img.height; sw = sh * targetRatio;
+    sx = (img.width - sw) / 2; sy = 0;
+  } else {
+    sw = img.width; sh = sw / targetRatio;
+    sx = 0; sy = (img.height - sh) / 2;
   }
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
 }
 
-function downloadPNG(){
-  const btn=document.querySelector('.dl-btn');
-  btn.textContent='產生中...';btn.disabled=true;
-  html2canvas(document.getElementById('igCanvas'),{
-    scale:4,useCORS:true,backgroundColor:null,logging:false
-  }).then(cv=>{
-    const a=document.createElement('a');
-    a.download='heshi-ig.png';
-    a.href=cv.toDataURL('image/png');
-    a.click();
-    btn.textContent='⬇ 下載圖片（PNG）';btn.disabled=false;
+// 輔助：處理多行文字換行與金色高亮 (★)
+function drawMultiLines(ctx, textId, x, y, lineHeight, normalColor, align = 'left') {
+  const lines = (document.getElementById(textId).value || '').split('\n');
+  ctx.textAlign = align;
+  ctx.textBaseline = 'top';
+  lines.forEach((line, i) => {
+    if(line.startsWith('★')) {
+      ctx.fillStyle = '#e6a817'; // Gold
+      ctx.font = 'bold 48px "Noto Sans TC"';
+      ctx.fillText(line.slice(1).trim(), x, y + (i * lineHeight));
+    } else {
+      ctx.fillStyle = normalColor;
+      ctx.font = '400 48px "Noto Sans TC"';
+      ctx.fillText(line, x, y + (i * lineHeight));
+    }
   });
 }
 
-render();
+// 核心渲染邏輯 (1080 x 1350)
+function render(){
+  const canvas = document.getElementById('igCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1080;
+  const H = 1350;
+
+  ctx.clearRect(0, 0, W, H);
+
+  if(cur === 'A'){
+    // 背景
+    if(photos.main) drawCover(ctx, photos.main, 0, 0, W, H);
+    else { ctx.fillStyle = '#5a6a7a'; ctx.fillRect(0,0,W,H); }
+
+    // 底部暗色漸層
+    const grad = ctx.createLinearGradient(0, H * 0.4, 0, H);
+    grad.addColorStop(0, 'transparent');
+    grad.addColorStop(0.55, 'rgba(5,15,40,0.55)');
+    grad.addColorStop(1, 'rgba(5,15,40,0.95)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 品牌直排文字 + 陰影
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.font = '400 44px "Noto Serif TC"';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowOffsetY = 4;
+    ctx.shadowBlur = 16;
+    const brand = document.getElementById('aBrand').value;
+    brand.split('').forEach((char, i) => {
+      ctx.fillText(char, 76, 56 + (i * 64));
+    });
+    ctx.restore();
+
+    // 標題
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 76px "Noto Sans TC"';
+    ctx.textAlign = 'left';
+    const titles = (document.getElementById('aTitle').value||'').split('\n');
+    titles.forEach((t, i) => ctx.fillText(t, 64, 980 + (i * 100)));
+
+    // 分隔線
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.fillRect(64, 980 + (titles.length * 100) + 20, 952, 2);
+
+    // 金色膠囊標籤
+    const tag = document.getElementById('aTag').value;
+    if(tag) {
+      ctx.font = 'bold 40px "Noto Sans TC"';
+      const tw = ctx.measureText(tag).width;
+      const tagY = 980 + (titles.length * 100) + 60;
+      ctx.fillStyle = '#e6a817';
+      ctx.beginPath();
+      ctx.roundRect(64, tagY, tw + 72, 60, 30);
+      ctx.fill();
+      ctx.fillStyle = '#0d2359';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(tag, 100, tagY + 30);
+    }
+
+  } else if (cur === 'B') {
+    // 深藍背景
+    ctx.fillStyle = '#0d2359'; ctx.fillRect(0,0,W,H);
+    
+    // 中間膠囊框
+    const title = document.getElementById('bTitle').value;
+    ctx.font = 'bold 60px "Noto Sans TC"';
+    const tw = ctx.measureText(title).width;
+    const boxW = tw + 140;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.roundRect((W - boxW)/2, 240, boxW, 120, 60);
+    ctx.fill();
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = '#e6a817';
+    ctx.stroke();
+    
+    ctx.fillStyle = '#0d2359';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(title, W/2, 300);
+
+    // 內文
+    drawMultiLines(ctx, 'bLines', W/2, 450, 80, 'rgba(255,255,255,0.85)', 'center');
+
+  } else if (cur === 'C') {
+    ctx.fillStyle = '#eeece8'; ctx.fillRect(0,0,W,H);
+    
+    // 頂部照片
+    if(photos.main) drawCover(ctx, photos.main, 0, 0, W, 780);
+    else { ctx.fillStyle = '#bbb'; ctx.fillRect(0,0,W,780); }
+
+    // 右側深藍條
+    ctx.fillStyle = '#0d2359'; ctx.fillRect(W - 40, 0, 40, H);
+
+    // 橫幅標題 (圓角在下半部)
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.roundRect(64, 780, W - 168, 140, [0, 0, 40, 40]);
+    ctx.fill();
+    ctx.fillStyle = '#e6a817'; // 底部金線
+    ctx.fillRect(64, 912, W - 168, 8);
+
+    ctx.fillStyle = '#0d2359';
+    ctx.font = 'bold 52px "Noto Sans TC"';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(document.getElementById('cTitle').value, 110, 850);
+
+    // 內文
+    drawMultiLines(ctx, 'cLines', 100, 1000, 75, '#1a2a50');
+
+  } else if (cur === 'D') {
+    // 背景與白色遮罩
+    if(photos.main) drawCover(ctx, photos.main, 0, 0, W, H);
+    else { ctx.fillStyle = '#7a8a9a'; ctx.fillRect(0,0,W,H); }
+    ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.fillRect(0,0,W,H);
+
+    // 頂部膠囊
+    const title = document.getElementById('dTitle').value;
+    ctx.font = 'bold 52px "Noto Sans TC"';
+    const tw = ctx.measureText(title).width;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.roundRect(48, 48, tw + 100, 100, 50);
+    ctx.fill();
+    ctx.fillStyle = '#e6a817'; // 左側金邊
+    ctx.beginPath();
+    ctx.roundRect(48, 48, 16, 100, [50, 0, 0, 50]);
+    ctx.fill();
+    
+    ctx.fillStyle = '#0d2359';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(title, 90, 98);
+
+    // 底部暗色漸層與文字
+    const grad = ctx.createLinearGradient(0, H * 0.5, 0, H);
+    grad.addColorStop(0, 'transparent');
+    grad.addColorStop(0.3, 'rgba(5,15,40,0.35)');
+    grad.addColorStop(1, 'rgba(5,15,40,0.85)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, H * 0.5, W, H * 0.5);
+
+    drawMultiLines(ctx, 'dLines', 64, 950, 80, 'rgba(255,255,255,0.9)');
+
+  } else if (cur === 'E') {
+    ctx.fillStyle = '#0d2359'; ctx.fillRect(0,0,W,H);
+    
+    // 左上膠囊標題
+    const title = document.getElementById('eTitle').value;
+    ctx.font = 'bold 52px "Noto Sans TC"';
+    const tw = ctx.measureText(title).width;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.roundRect(72, 72, tw + 100, 100, 50);
+    ctx.fill();
+    ctx.fillStyle = '#e6a817'; // 左側金邊
+    ctx.beginPath();
+    ctx.roundRect(72, 72, 16, 100, [50, 0, 0, 50]);
+    ctx.fill();
+    
+    ctx.fillStyle = '#0d2359';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(title, 114, 122);
+
+    // 文字
+    drawMultiLines(ctx, 'eLines', 72, 230, 75, 'rgba(255,255,255,0.85)');
+
+    // 底部灰色區塊與錯位雙圖
+    ctx.fillStyle = '#eeece8';
+    ctx.fillRect(0, 550, W, 800);
+
+    // 右側大圖 (加粗白框)
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(412, 572, 636, 746); // 外框
+    if(photos.big) drawCover(ctx, photos.big, 420, 580, 620, 730);
+    else { ctx.fillStyle = '#b5b0a8'; ctx.fillRect(420, 580, 620, 730); }
+
+    // 左下小圖 (加粗白框)
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(24, 752, 491, 566); // 外框
+    if(photos.small) drawCover(ctx, photos.small, 32, 760, 475, 550);
+    else { ctx.fillStyle = '#b5b0a8'; ctx.fillRect(32, 760, 475, 550); }
+  }
+}
+
+// 匯出高畫質圖片
+function downloadPNG(){
+  const canvas = document.getElementById('igCanvas');
+  const link = document.createElement('a');
+  link.download = `何時旅遊_IG_${new Date().getTime()}.png`;
+  // 直接輸出 1080x1350 原生解析度
+  link.href = canvas.toDataURL('image/png', 1.0);
+  link.click();
+}
+
+// 確保字體載入後再渲染，防止掉字
+window.onload = () => {
+  document.fonts.ready.then(() => render());
+};
 </script>
 </body>
 </html>
