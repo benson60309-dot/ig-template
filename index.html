@@ -242,19 +242,27 @@ function render(){
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.fillRect(64, 980 + (titles.length * 100) + 20, 952, 2);
 
-    // 金色膠囊標籤
+    // 金色標籤 (半截螢光筆與文字陰影效果)
     const tag = document.getElementById('aTag').value;
     if(tag) {
-      ctx.font = 'bold 40px "Noto Sans TC"';
+      ctx.font = 'bold 44px "Noto Sans TC"';
       const tw = ctx.measureText(tag).width;
       const tagY = 980 + (titles.length * 100) + 60;
+
+      // 1. 先畫下半截的金色螢光筆色塊
       ctx.fillStyle = '#e6a817';
-      ctx.beginPath();
-      ctx.roundRect(64, tagY, tw + 72, 60, 30);
-      ctx.fill();
-      ctx.fillStyle = '#0d2359';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(tag, 100, tagY + 30);
+      // X 稍微向左凸一點點 (60) 包覆邊緣，Y 從文字中間開始畫，高度只畫一半 (24)
+      ctx.fillRect(60, tagY + 24, tw + 8, 24);
+
+      // 2. 再畫白色文字，並加上深色陰影讓字在背景中跳出來
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.textBaseline = 'top';
+      ctx.shadowColor = 'rgba(0,0,0,0.6)'; // 陰影顏色與透明度
+      ctx.shadowBlur = 8;                  // 陰影模糊程度
+      ctx.shadowOffsetY = 2;               // 陰影微幅往下偏移
+      ctx.fillText(tag, 64, tagY);
+      ctx.restore();
     }
 
   } else if (cur === 'B') {
